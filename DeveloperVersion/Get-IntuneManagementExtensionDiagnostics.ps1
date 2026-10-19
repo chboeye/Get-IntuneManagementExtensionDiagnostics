@@ -209,12 +209,12 @@ Note that PowerShell script is always shown in report ToolTip in clear text beca
 .OUTPUTS
    None
 .NOTES
-   HTML report refinements: associated control labels, title/viewport metadata,
-   wrapping filters and dark grouped rows with readable status colors.
-
    You can download current version of this script from PowershellGallery with command
 
    Save-Script Get-IntuneManagementExtensionDiagnostics -Path ./
+
+   HTML report refinements: associated control labels, title/viewport metadata,
+   wrapping filters and dark grouped rows with readable status colors.
 .LINK
    https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics
 #>
@@ -4602,6 +4602,8 @@ do {
 		# Create HTML report
 
 	$head = @'
+	<title>Get-IntuneManagementExtensionDiagnostics Observed Timeline Report</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<style>
 		body {
 			background-color: #FFFFFF;
@@ -6317,8 +6319,6 @@ do {
 
 
 		$Title = "Get-IntuneManagementExtensionDiagnostics Observed Timeline Report"
-		$head = "<title>$([System.Net.WebUtility]::HtmlEncode($Title))</title>`n" +
-			"<meta name=`"viewport`" content=`"width=device-width, initial-scale=1`" />`n$head"
 		ConvertTo-HTML -head $head -PostContent $observedTimelineHTML, $ApplicationDownloadStatisticsHTML, $TargetedAppsHTML, $JavascriptPostContent -PreContent $PreContent -Title $Title | Out-File "$ReportSavePath\$HTMLFileName"
 		$Success = $?
 
